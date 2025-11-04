@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Undangan Pernikahan — Budi &amp; Feby</title>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --marun:#800000;
+  --emas:#D4AF37;
+  --cream:#FFF9F5;
+  --dark:#2b2b2b;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #f7efe8 0%, #fff 100%);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* --- Envelope opening cover --- */
+.cover {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45));
+  z-index:9999;
+}
+.envelope {
+  width:320px;
+  max-width:90%;
+  height:220px;
+  perspective:1200px;
+  cursor:pointer;
+}
+.envelope .body{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.2,.9,.3,1);
+}
+.envelope .back{
+  position:absolute; inset:0;
+  background:var(--marun);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--emas);
+  font-family: "Playfair Display", serif;
+  font-size:22px;
+  letter-spacing:1px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.3);
+}
+.envelope .flap{
+  position:absolute;
+  left:0; right:0;
+  top:0;
+  height:50%;
+  background:linear-gradient(180deg,var(--marun), #6a0000);
+  transform-origin:center top;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+  transform:rotateX(0deg);
+  transition:transform 1s cubic-bezier(.2,.9,.3,1);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--emas);
+  font-family: "Playfair Display", serif;
+  font-size:18px;
+}
+.envelope.open .body{ transform: translateY(65px); }
+.envelope.open .flap{ transform: rotateX(-180deg); }
+
+/* small hint */
+.open-hint{
+  margin-top:14px;
+  text-align:center;
+  color:rgba(255,255,255,0.9);
+  font-size:13px;
+  font-weight:600;
+}
+
+/* Main content */
+.container{
+  max-width:980px;
+  margin:80px auto;
+  background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,1));
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  overflow:hidden;
+  display:flex;
+  gap:0;
+}
+
+/* sidebar visual for desktop */
+.sidebar{
+  width:320px;
+  padding:36px;
+  background: linear-gradient(180deg, var(--marun), #6a0000);
+  color:var(--emas);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+.sidebar .names{
+  font-family:"Playfair Display", serif;
+  font-size:28px;
+  text-align:center;
+  letter-spacing:1px;
+}
+.sidebar .date{
+  font-weight:600;
+  margin-top:6px;
+}
+.sidebar .ornament{
+  margin-top:12px;
+  width:160px;
+  height:2px;
+  background:linear-gradient(90deg,var(--emas), rgba(212,175,55,0.6));
+  border-radius:2px;
+}
+
+/* content main */
+.main{
+  flex:1;
+  padding:28px 36px;
+}
+.hero{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+}
+.hero .left{
+  max-width:60%;
+}
+.greetings{
+  font-family:"Playfair Display", serif;
+  color:var(--marun);
+  font-size:26px;
+  margin:0 0 8px 0;
+}
+.mini{
+  color:#666;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+/* action buttons */
+.actions{
+  display:flex;
+  gap:10px;
+  margin:18px 0;
+}
+.btn{
+  padding:10px 14px;
+  border-radius:8px;
+  background:var(--marun);
+  color:var(--emas);
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow: 0 6px 18px rgba(128,0,0,0.08);
+}
+.btn.secondary{
+  background:transparent;
+  color:var(--marun);
+  border:1px solid rgba(128,0,0,0.06);
+}
+
+/* sections */
+.section{
+  margin-top:18px;
+  padding:16px;
+  border-radius:10px;
+  background:rgba(245,240,238,0.8);
+  border:1px solid rgba(0,0,0,0.03);
+}
+.section h3{
+  margin:0 0 10px 0;
+  font-size:18px;
+  color:var(--marun);
+}
+
+/* maps iframe */
+.map-wrap iframe{
+  width:100%;
+  height:260px;
+  border:0;
+  border-radius:8px;
+}
+
+/* RSVP list */
+.rsvp-list{ margin-top:12px; }
+.rsvp-item{ padding:8px; border-bottom:1px dashed rgba(0,0,0,0.04); display:flex; justify-content:space-between; align-items:center;}
+
+/* guestbook */
+.guest-list{ margin-top:12px; max-height:260px; overflow:auto; }
+.guest-item{ padding:10px; background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.03); margin-bottom:8px; }
+
+/* footer */
+.footer{
+  margin-top:20px;
+  text-align:center;
+  color:#666;
+}
+
+/* mobile adaptation: show top image instead of sidebar */
+@media(max-width:880px){
+  .container{
+    margin:20px;
+    flex-direction:column;
+  }
+  .sidebar{ width:100%; padding:20px; flex-direction:row; justify-content:space-between; align-items:center; }
+  .hero{ flex-direction:column; align-items:flex-start; gap:8px; }
+  .hero .left{ max-width:100%; }
+  .map-wrap iframe{ height:200px; }
+  .envelope{ width:260px; height:180px; }
+}
+
+/* small utility */
+.hidden{ display:none; }
+.center{ text-align:center; }
+.play-music{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  z-index:10000;
+  background:var(--emas);
+  color:var(--marun);
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+}
+.logo-badge{
+  display:inline-block;
+  padding:8px 12px;
+  background:rgba(255,255,255,0.06);
+  border-radius:999px;
+  color:var(--emas);
+  font-weight:700;
+}
+.note{
+  font-size:13px;
+  color:#444;
+}
+</style>
+</head>
+<body>
+
+<!-- Music player: YouTube iframe (hidden) -->
+<!-- Ganti VIDEO_ID_YOUTUBE dengan id video YouTube mu (contoh: 'dQw4w9WgXcQ') -->
+<!-- Catatan: jika autoplay diblokir, tombol Play Music akan muncul -->
+<div id="yt-player-container" style="position:fixed; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden;">
+  <iframe id="yt-player" src="https://www.youtube.com/embed/umzYz7bpWTM?autoplay=1&loop=1&playlist=RDumzYz7bpWTM&controls=0&iv_load_policy=3&modestbranding=1&rel=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+</div>
+
+<!-- Play music button (for fallback) -->
+<button id="play-music-btn" class="play-music hidden" aria-label="Play Music">▶️ Putar Musik</button>
+
+<!-- Envelope cover -->
+<div id="cover" class="cover">
+  <div style="text-align:center;">
+    <div class="envelope" id="envelope">
+      <div class="body">
+        <div class="back">Undangan Pernikahan</div>
+        <div class="flap">Budi &amp; Feby</div>
+      </div>
+    </div>
+    <div class="open-hint">Ketuk / Klik untuk membuka undangan</div>
+  </div>
+</div>
+
+<!-- Main container -->
+<main class="container" id="main-content" style="display:none;">
+  <aside class="sidebar">
+    <div style="text-align:center">
+      <div class="names">Budi &amp; Feby</div>
+      <div class="date">20 Desember 2025</div>
+      <div class="ornament"></div>
+      <div style="margin-top:10px; font-size:13px;" class="note">Betawi — Madura</div>
+    </div>
+  </aside>
+
+  <section class="main">
+    <div class="hero">
+      <div class="left">
+        <h2 class="greetings">Dengan memohon rahmat dan ridho Allah SWT</h2>
+        <p class="mini">Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan putra-putri kami.</p>
+        <div style="font-family:'Playfair Display', serif; font-size:20px; color:var(--marun); margin-top:6px;">
+          <strong>Budi</strong> &amp; <strong>Feby</strong>
+        </div>
+        <div style="margin-top:8px; color:#444;">Akad: <strong>20 Desember 2025 — 10:00 WIB</strong><br>Resepsi: <strong>20 Desember 2025 — 12:00 WIB</strong></div>
+      </div>
+
+      <div class="right">
+        <div class="logo-badge">Undangan Digital</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" onclick="scrollToSection('acara')">Lihat Acara</button>
+      <button class="btn" onclick="scrollToSection('lokasi')">Lokasi</button>
+      <button class="btn secondary" onclick="openRSVP()">Konfirmasi Hadir</button>
+      <button class="btn" onclick="openGuest()">Kirim Ucapan</button>
+    </div>
+
+    <!-- Acara -->
+    <div id="acara" class="section">
+      <h3>Rangkaian Acara</h3>
+      <p><strong>Akad Nikah:</strong> 20 Desember 2025, Pukul 10:00 WIB — Selesai</p>
+      <p><strong>Resepsi:</strong> 20 Desember 2025, Pukul 12:00 WIB — Selesai</p>
+      <p class="note">*Catatan busana: Pakaian adat Betawi / Madura atau pakaian sopan</p>
+    </div>
+
+    <!-- Turut Mengundang -->
+    <div id="turut" class="section">
+      <h3>Turut Mengundang</h3>
+      <p>
+        <!-- Ganti daftar ini sesuai kebutuhan -->
+        Keluarga Besar <strong>[Nama Keluarga Budi]</strong><br>
+        Keluarga Besar <strong>[Nama Keluarga Feby]</strong><br>
+        <!-- jika ingin lebih, tambahkan di sini -->
+      </p>
+    </div>
+
+    <!-- Lokasi -->
+    <div id="lokasi" class="section">
+      <h3>Lokasi Acara</h3>
+      <p>Alamat lengkap: <em>Jl. H. Djairi No.4C, RT.1/RW.2, Rw. Buaya, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11740</em></p>
+      <div class="map-wrap">
+        <!-- GANTI src berikut dengan Google Maps Embed link lokasi acara -->
+        <!-- Contoh format iframe embed dari Google Maps:
+             https://www.google.com/maps/embed?pb=...  -->
+        <iframe id="gmap" src="https://www.google.com/maps/embed?pb=1Kpg4MVqE1WuGmk78" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Kirim Hadiah -->
+    <div id="hadiah" class="section">
+      <h3>Kirim Hadiah</h3>
+      <p>Jika berkenan memberi hadiah, bisa melalui tombol di bawah.</p>
+      <button class="btn" id="show-account-btn">Kirim Hadiah</button>
+
+      <div id="account-info" class="hidden" style="margin-top:12px;">
+        <div style="padding:12px; background:#fff; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.04);">
+          <p><strong>Nama Bank:</strong> <span id="bank-name">[GANTI_BANK]</span></p>
+          <p><strong>Nomor Rekening:</strong> <span id="bank-account">[GANTI_NO_REK]</span></p>
+          <p><strong>Atas Nama:</strong> <span id="bank-owner">[GANTI_NAMA]</span></p>
+          <p class="note">*Silakan salin nomor rekening di atas. Untuk keamanan, selalu konfirmasi via chat bila perlu.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Konfirmasi hadir (RSVP) -->
+    <div id="rsvp" class="section">
+      <h3>Konfirmasi Kehadiran</h3>
+      <form id="rsvp-form">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input name="name" placeholder="Nama lengkap" required style="flex:1; padding:10px; border-radius:8px; border:1px solid #ddd;">
+          <select name="status" required style="padding:10px; border-radius:8px; border:1px solid #ddd; width:160px;">
+            <option value="">Pilih</option>
+            <option value="Hadir">Hadir</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+          </select>
+          <input name="jumlah" type="number" min="0" placeholder="Jumlah orang" value="1" style="width:120px; padding:10px; border-radius:8px; border:1px solid #ddd;">
+        </div>
+        <div style="margin-top:10px;">
+          <button class="btn" type="submit">Kirim</button>
+        </div>
+      </form>
+
+      <div class="rsvp-list" id="rsvp-list"></div>
+    </div>
+
+    <!-- Guestbook -->
+    <div id="guestbook" class="section">
+      <h3>Kirim Ucapan</h3>
+      <form id="guest-form">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input name="gname" placeholder="Nama" required style="flex:1; padding:10px; border-radius:8px; border:1px solid #ddd;">
+          <input name="gphi" placeholder="Hubungan (opsional)" style="width:160px; padding:10px; border-radius:8px; border:1px solid #ddd;">
+        </div>
+        <textarea name="gmsg" placeholder="Tulis ucapanmu..." required style="width:100%; margin-top:10px; padding:10px; border-radius:8px; border:1px solid #ddd; min-height:80px"></textarea>
+        <div style="margin-top:10px;">
+          <button class="btn" type="submit">Kirim Ucapan</button>
+        </div>
+      </form>
+
+      <div class="guest-list" id="guest-list"></div>
+    </div>
+
+    <div class="footer">
+      <p>Terima kasih atas doa dan kehadiran Anda.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* -----------------------
+   Envelope opening logic
+   ----------------------- */
+const cover = document.getElementById('cover');
+const envelope = document.getElementById('envelope');
+const mainContent = document.getElementById('main-content');
+const playBtn = document.getElementById('play-music-btn');
+
+envelope.addEventListener('click', openEnvelope);
+cover.addEventListener('click', (e)=>{ if(e.target===cover) openEnvelope(); });
+
+function openEnvelope(){
+  envelope.classList.add('open');
+  // after animation, hide cover and show main content
+  setTimeout(()=>{
+    cover.style.display='none';
+    mainContent.style.display='flex';
+    tryPlayMusic();
+  }, 900);
+}
+
+/* -----------------------
+   Scroll helpers
+   ----------------------- */
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* -----------------------
+   YouTube autoplay handling
+   ----------------------- */
+/* Replace VIDEO_ID_YOUTUBE with your YouTube video id at top of file.
+   Note: many browsers block autoplay with sound. We attempt to autoplay;
+   if it fails, show a manual play button.
+*/
+function tryPlayMusic(){
+  // Attempt to play hidden iframe by reloading src with autoplay (some browsers respond)
+  const iframe = document.getElementById('yt-player');
+  if(!iframe) return;
+
+  // Modern browsers often block autoplay with sound.
+  // Show a play button if audio cannot play automatically (fallback).
+  // We'll try to create an AudioContext resume on user gesture as optional.
+  setTimeout(()=>{
+    // If autoplay is blocked, show play button
+    // There is no direct API to check iframe audio state; so show button after small delay.
+    playBtn.classList.remove('hidden');
+    playBtn.addEventListener('click', ()=>{
+      // attempt to reload iframe to force play (some browsers allow after user gesture)
+      iframe.src = iframe.src + "";
+      // hide play button after click
+      playBtn.classList.add('hidden');
+    });
+  },1200);
+}
+
+/* -----------------------
+   RSVP storage (localStorage)
+   ----------------------- */
+const rsvpForm = document.getElementById('rsvp-form');
+const rsvpList = document.getElementById('rsvp-list');
+const RSVP_KEY = 'undangan_rsvp_v1';
+
+function loadRSVP(){
+  const data = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+  renderRSVP(data);
+}
+function renderRSVP(items){
+  rsvpList.innerHTML = '';
+  if(!items.length) { rsvpList.innerHTML = '<p class="note">Belum ada konfirmasi.</p>'; return; }
+  items.forEach((it, idx)=>{
+    const div = document.createElement('div');
+    div.className='rsvp-item';
+    div.innerHTML = <div><strong>${escapeHtml(it.name)}</strong> <span class="note">(${escapeHtml(it.status)})</span></div><div>${it.jumlah} org</div>;
+    rsvpList.appendChild(div);
+  });
+}
+rsvpForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const fd = new FormData(rsvpForm);
+  const name = fd.get('name').trim();
+  const status = fd.get('status');
+  const jumlah = parseInt(fd.get('jumlah') || 0);
+  const list = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+  list.unshift({name, status, jumlah, created: Date.now()});
+  localStorage.setItem(RSVP_KEY, JSON.stringify(list));
+  rsvpForm.reset();
+  loadRSVP();
+  alert('Terima kasih, konfirmasi tersimpan.');
+});
+loadRSVP();
+
+/* -----------------------
+   Guestbook (ucapan)
+   ----------------------- */
+const guestForm = document.getElementById('guest-form');
+const guestList = document.getElementById('guest-list');
+const GUEST_KEY = 'undangan_guest_v1';
+
+function loadGuest(){
+  const data = JSON.parse(localStorage.getItem(GUEST_KEY) || '[]');
+  renderGuest(data);
+}
+function renderGuest(items){
+  guestList.innerHTML = '';
+  if(!items.length) { guestList.innerHTML = '<p class="note">Belum ada ucapan.</p>'; return;}
+  items.forEach(it=>{
+    const d = document.createElement('div');
+    d.className='guest-item';
+    d.innerHTML = <div style="display:flex; justify-content:space-between; align-items:center;"><div><strong>${escapeHtml(it.name)}</strong> <span class="note">${escapeHtml(it.hubungan || '')}</span></div><div style="font-size:12px;color:#999">${new Date(it.ts).toLocaleString()}</div></div><div style="margin-top:8px">${nl2br(escapeHtml(it.msg))}</div>;
+    guestList.appendChild(d);
+  });
+}
+guestForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const fd = new FormData(guestForm);
+  const name = fd.get('gname').trim();
+  const hubungan = fd.get('gphi').trim();
+  const msg = fd.get('gmsg').trim();
+  const list = JSON.parse(localStorage.getItem(GUEST_KEY) || '[]');
+  list.unshift({name, hubungan, msg, ts: Date.now()});
+  localStorage.setItem(GUEST_KEY, JSON.stringify(list));
+  guestForm.reset();
+  loadGuest();
+  alert('Ucapan berhasil dikirim. Terima kasih!');
+});
+loadGuest();
+
+/* -----------------------
+   Show account info (kirim hadiah)
+   ----------------------- */
+document.getElementById('show-account-btn').addEventListener('click', ()=>{
+  const el = document.getElementById('account-info');
+  el.classList.toggle('hidden');
+});
+
+/* -----------------------
+   Utility helpers
+   ----------------------- */
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]}) }
+function nl2br(s){ return s.replace(/\n/g,'<br>'); }
+
+/* -----------------------
+   Uncomment and set defaults via JS if you prefer:
+   document.getElementById('bank-name').textContent = 'BCA';
+   document.getElementById('bank-account').textContent = '1234567890';
+   document.getElementById('bank-owner').textContent = 'Budi Santoso';
+   Also replace Google Maps iframe src at top of file.
+*/
+
+/* -----------------------
+   Extra: open RSVP or Guest sections quickly
+   ----------------------- */
+function openRSVP(){ scrollToSection('rsvp'); }
+function openGuest(){ scrollToSection('guestbook'); }
+
+/* End of script */
+</script>
+
+</body>
+</html>
