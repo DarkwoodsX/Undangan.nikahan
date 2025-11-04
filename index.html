@@ -485,7 +485,13 @@ function renderRSVP(items){
   items.forEach((it, idx)=>{
     const div = document.createElement('div');
     div.className='rsvp-item';
-    div.innerHTML = <div><strong>${escapeHtml(it.name)}</strong> <span class="note">(${escapeHtml(it.status)})</span></div><div>${it.jumlah} org</div>;
+    div.innerHTML = `
+      <div>
+        <strong>${escapeHtml(it.name)}</strong> 
+        <span class="note">(${escapeHtml(it.status)})</span>
+      </div>
+      <div>${it.jumlah} org</div>
+    `;
     rsvpList.appendChild(div);
   });
 }
@@ -521,7 +527,16 @@ function renderGuest(items){
   items.forEach(it=>{
     const d = document.createElement('div');
     d.className='guest-item';
-    d.innerHTML = <div style="display:flex; justify-content:space-between; align-items:center;"><div><strong>${escapeHtml(it.name)}</strong> <span class="note">${escapeHtml(it.hubungan || '')}</span></div><div style="font-size:12px;color:#999">${new Date(it.ts).toLocaleString()}</div></div><div style="margin-top:8px">${nl2br(escapeHtml(it.msg))}</div>;
+    d.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong>${escapeHtml(it.name)}</strong> 
+          <span class="note">${escapeHtml(it.hubungan || '')}</span>
+        </div>
+        <div style="font-size:12px;color:#999">${new Date(it.ts).toLocaleString()}</div>
+        </div>
+        <div style="margin-top:8px">${nl2br(escapeHtml(it.msg))}</div>
+    `;
     guestList.appendChild(d);
   });
 }
